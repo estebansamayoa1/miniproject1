@@ -36,7 +36,7 @@
     margin: 0 0 54px;
 }
 
-#pointscounter{
+#pointtracker{
     position:relative;
     bottom:150%;
     left:1%;
@@ -55,6 +55,16 @@ body{
     width:1000px;
     height:1100px;
     text-align:left;
+}
+
+#submitbutton{
+    position:relative;
+    top:65%;
+    width:100px;
+    height:40px;
+    left:5%;
+    background-color:#ECDBBA;
+    color:#FC6E51;
 }
 
 

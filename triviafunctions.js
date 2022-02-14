@@ -1,3 +1,5 @@
+
+
 let questions={
     1:{
        "question": "What is the second Harry Potter book called?",
@@ -12,6 +14,7 @@ let questions={
     3:{
        "question": "Who is the protagonist in The Catcher in the Rye?",
        "answerChoices": ["Holden Caulfield", "Jay Gatsby", "Percy Jackson", "Achilles"],
+       "correctAnswerIndex": 0
     },
     4:{
        "question": "What is the name of the protagonist in Rick Riordan's The Lightning Thief and other subsequent books in The Olympians series?",
@@ -22,7 +25,7 @@ let questions={
     5:{
        "question": "Which district is home to Katniss Everdeen in The Hunger Games?",
        "answerChoices": ["District 13", "District 12", "District 5", "District 1"],
-       "correctAnswerIndex": 3
+       "correctAnswerIndex": 1
 
     },
     6:{
@@ -82,7 +85,7 @@ let questions={
     15:{
        "question": "What Robert Frost Poem does Johnny recite to Ponyboy in The Outsiders?",
        "answerChoices": ["Mending Wall", "Nothing Gold Can Stay", "The Road not taken", "There is no poem"],
-       "correctAnswerIndex": 3
+       "correctAnswerIndex": 1
 
     },
     16:{
@@ -117,20 +120,33 @@ let questions={
            "Harper Lee", 
            "Edwin O'Connor"
        ],
-        "correctAnswerIndex": 1 
+        "correctAnswerIndex": 2 
 
     }
 };
 
+let points=0;
+
+let arr = [];
+
+
+
+
 
 function printquestions(questions){
-    document.getElementById('questionss').innerHTML = "";
-    let arr = [];
+    document.getElementById("questionss").innerHTML = "";
+    document.getElementById("pointscounter").innerHTML = points;
+    arr.length=0;
     while(arr.length < 6){
         var r = Math.floor(Math.random() * 20) + 1;
-        if(arr.indexOf(r) === -1) arr.push(r);
+        arr.push(r);
     }
-    for (var i=1;i<7;i++){
+    var button = document.createElement("button");
+    button.innerHTML='Submit Answers';
+    button.setAttribute('id','submitbutton', 'label','Submit Answers');
+    document.getElementById('questionss').appendChild(button);
+    document.getElementById('submitbutton').setAttribute('onclick','submitAnswer(questions,points,arr)');
+    for (var i=1;i<6;i++){
         var tag = document.createElement("ol");
         var text = document.createTextNode(questions[arr[i]].question);
         tag.appendChild(text);
@@ -140,21 +156,33 @@ function printquestions(questions){
             var label = document.createElement("label");
             var radio = document.createElement("input");
             var br = document.createElement("br");
-            radio.setAttribute('type','radio','id',j);
-            label.appendChild(radio);
+            radio.setAttribute('name','choice'+i);
             label.appendChild(document.createTextNode(questions[arr[i]].answerChoices[j]));
+            radio.setAttribute('type','radio');
+            radio.appendChild(label);
+            document.getElementById('questionss').appendChild(radio);
             document.getElementById('questionss').appendChild(label);
             element.appendChild(br);   
         }
     }
-    var button = document.createElement("button");
-    document.getElementById('questionss').appendChild(button);
+    
 }
 
-function checkanswer(questions, arr){
-
-
-}
-
+function submitAnswer(questions,points,arr) {
+    console.log(arr);
+    for (var i=1;i<6;i++){
+        var choices=document.getElementsByName('choice'+i); 
+        for (var j=0;j<4;j++){
+            if (choices[j].checked==true){
+                if (j==questions[arr[i]].correctAnswerIndex){
+                    console.log('si');
+                    points+=10;
+                    document.getElementById("pointscounter").innerHTML = points;
+                }
+            }
+        }
+    }
+    alert('Game finished\nPoints:'+points);
+};
 
 
