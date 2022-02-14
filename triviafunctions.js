@@ -169,20 +169,25 @@ function printquestions(questions){
 }
 
 function submitAnswer(questions,points,arr) {
-    console.log(arr);
+   var incorrectas=[];
     for (var i=1;i<6;i++){
         var choices=document.getElementsByName('choice'+i); 
         for (var j=0;j<4;j++){
             if (choices[j].checked==true){
                 if (j==questions[arr[i]].correctAnswerIndex){
-                    console.log('si');
                     points+=10;
                     document.getElementById("pointscounter").innerHTML = points;
+                }
+                else{
+                   incorrectas.push(questions[arr[i]].question);
                 }
             }
         }
     }
     alert('Game finished\nPoints:'+points);
+    alert('Preguntas Incorrectas:\n'+incorrectas);
+  
+    
 };
 
 
